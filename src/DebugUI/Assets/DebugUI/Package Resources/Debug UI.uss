@@ -420,3 +420,39 @@
     margin-bottom: 3px;
     margin-left: 3px;
 }
+
+.unity-dropdown-field {
+    background-color: #2d2f3a;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #4a4d63;
+}
+
+.unity-dropdown-field__text {
+    color: #e6e6e6;
+}
+
+.unity-dropdown-field__arrow {
+    tint-color: #cfcfff;
+}
+
+.unity-base-popup-field__popup {
+    background-color: #2b2e3b;
+    border-radius: 8px;
+    border-color: #4a4d63;
+}
+
+/* Элементы списка */
+.unity-base-popup-field__popup .unity-dropdown-item {
+    color: #e6e6e6;
+}
+
+/* Hover */
+.unity-base-popup-field__popup .unity-dropdown-item:hover {
+    background-color: #4b5cff;
+}
+
+/* Selected */
+.unity-base-popup-field__popup .unity-dropdown-item--checked {
+    background-color: #5a5fff;
+}

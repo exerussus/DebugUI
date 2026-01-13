@@ -447,6 +447,8 @@ namespace DebugUI
             if (Choices != null) foreach (var choice in Choices) choices.Add(choice);
             
             var field = new DropdownField(Label, choices, Getter());
+            
+            field.AddToClassList("debug-dropdown");
 
             if (Setter == null)
             {
@@ -486,7 +488,9 @@ namespace DebugUI
             if (Choices != null) foreach (var choice in Choices) choices.Add(choice);
                 
             var field = new DropdownField(Label, choices, Choices?[0]);
-
+            
+            field.AddToClassList("debug-dropdown");
+            
             field.RegisterValueChangedCallback(x =>
             {
                 OnSelected?.Invoke(x.newValue);
