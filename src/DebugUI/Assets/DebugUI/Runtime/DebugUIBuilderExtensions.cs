@@ -515,16 +515,34 @@ namespace DebugUI
             return builder;
         }
 
-        public static IDebugUIBuilder AddDropdown(this IDebugUIBuilder builder, string label, List<string> choices, Action<IDebugUIBuilder> configure)
+        public static IDebugUIBuilder AddDropdown(this IDebugUIBuilder builder, string label, List<string> choices, Func<string> getter, Action<string> setter)
         {
             builder.Factories.Add(new DebugDropdownFactory()
             {
                 Label = label,
                 Choices = choices,
+                Getter = getter,
+                Setter = setter
             });
             return builder;
         }
+        
+        public static IDebugUIBuilder AddDropdown(
+            this IDebugUIBuilder builder,
+            string label,
+            List<string> choices,
+            Action<string> onSelected)
+        {
+            builder.Factories.Add(new DebugDropdownCommandFactory()
+            {
+                Label = label,
+                Choices = choices,
+                OnSelected = onSelected
+            });
 
+            return builder;
+        }
+        
         public static void BuildWith(this IDebugUIBuilder builder, UIDocument uiDocument)
         {
             uiDocument.rootVisualElement.Add(builder.Build());

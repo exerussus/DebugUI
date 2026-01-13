@@ -443,10 +443,9 @@ namespace DebugUI
         public VisualElement CreateVisualElement(ICollection<IDisposable> disposables)
         {
             var choices = new List<string>();
-            if (Choices != null)
-            {
-                foreach (var choice in Choices) choices.Add(choice);
-            }
+            
+            if (Choices != null) foreach (var choice in Choices) choices.Add(choice);
+            
             var field = new DropdownField(Label, choices, Getter());
 
             if (Setter == null)
@@ -469,6 +468,29 @@ namespace DebugUI
                         field.value = x;
                 })
                 .AddTo(disposables);
+
+            return field;
+        }
+    }
+        
+    internal sealed class DebugDropdownCommandFactory : IDebugUIElementFactory
+    {
+        public string Label { get; set; }
+        public IReadOnlyList<string> Choices { get; set; }
+        public Action<string> OnSelected { get; set; }
+
+        public VisualElement CreateVisualElement(ICollection<IDisposable> disposables)
+        {
+            var choices = new List<string>();
+                
+            if (Choices != null) foreach (var choice in Choices) choices.Add(choice);
+                
+            var field = new DropdownField(Label, choices, Choices?[0]);
+
+            field.RegisterValueChangedCallback(x =>
+            {
+                OnSelected?.Invoke(x.newValue);
+            });
 
             return field;
         }
