@@ -428,5 +428,49 @@ namespace DebugUI
             return field;
         }
     }
+    
+    internal sealed class DebugDropdownFactory : IDebugUIElementFactory
+    {
+        public string Label { get; set; }
+        public IReadOnlyList<string> Choices { get; set; }
 
+        /// <summary> Должен вернуть текущее выбранное значение (строку из Choices) </summary>
+        public Func<string> Getter { get; set; }
+
+        /// <summary> Вызывается при выборе нового значения </summary>
+        public Action<string> Setter { get; set; }
+
+        public VisualElement CreateVisualElement(ICollection<IDisposable> disposables)
+        {
+            var choices = new List<string>();
+            if (Choices != null)
+            {
+                foreach (var choice in Choices) choices.Add(choice);
+            }
+            var field = new DropdownField(Label, choices, Getter());
+
+            if (Setter == null)
+            {
+                field.SetEnabled(false);
+            }
+            else
+            {
+                field.RegisterValueChangedCallback(x =>
+                {
+                    if (x.newValue != Getter())
+                        Setter(x.newValue);
+                });
+            }
+
+            MinimalRx.EveryValueChanged(this, x => x.Getter())
+                .Subscribe(x =>
+                {
+                    if (field.value != x)
+                        field.value = x;
+                })
+                .AddTo(disposables);
+
+            return field;
+        }
+    }
 }
