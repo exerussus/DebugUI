@@ -54,7 +54,7 @@ public class DemoUIBuilder : DebugUIBuilderBase
 3. Enter the following URL:
 
 ```
-https://github.com/AnnulusGames/DebugUI.git?path=src/DebugUI/Assets/DebugUI
+https://github.com/exerussus/DebugUI.git?path=src/DebugUI/Assets/DebugUI
 ```
 
 Alternatively, open Packages/manifest.json and add the following to the dependencies block:
@@ -62,7 +62,7 @@ Alternatively, open Packages/manifest.json and add the following to the dependen
 ```json
 {
     "dependencies": {
-        "com.annulusgames.debug-ui": "https://github.com/AnnulusGames/DebugUI.git?path=src/DebugUI/Assets/DebugUI"
+        "com.annulusgames.debug-ui": "https://github.com/exerussus/DebugUI.git?path=src/DebugUI/Assets/DebugUI"
     }
 }
 ```
